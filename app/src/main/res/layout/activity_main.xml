@@ -18,7 +18,7 @@
         android:layout_height="65dp">
 
         <TextView
-            android:text="Von: "
+            android:text="From: "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fromTextView"
@@ -26,7 +26,7 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:text="Nach: "
+            android:text="To: "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toTextView"
