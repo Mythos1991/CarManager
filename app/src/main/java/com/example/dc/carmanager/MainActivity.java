@@ -1,6 +1,10 @@
 package com.example.dc.carmanager;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +13,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.lang.ref.WeakReference;
+import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView fromTextView;
     private TextView toTextView;
     private ProgressBar routeProgressBar;
+    private ImageButton pausePlayProgressImageButton;
 
     // Tank
     private SeekBar fuelSeekBar;
@@ -61,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         fromTextView = (TextView) findViewById(R.id.fromTextView);
         toTextView = (TextView) findViewById(R.id.toTextView);
         routeProgressBar = (ProgressBar) findViewById(R.id.routeProgressBar);
+        pausePlayProgressImageButton = (ImageButton) findViewById(R.id.pausePlayProgressImageButton);
 
         // Tank
         final int FUEL_STEP = 1;
@@ -217,6 +227,35 @@ public class MainActivity extends AppCompatActivity {
         // save door state
         prefseditor.putBoolean(BOTTOMDOORKEY, (!BottomDoorLocked));
         prefseditor.commit();
+    }
+
+    // Thread to simulate progress while driving from A to B
+    final Thread progressThread = new Thread(new Runnable() { public void run() {
+        for (int i = 0; i <= 100; i++) {
+            routeProgressBar.setProgress(i);
+
+            // sleep to simulate progress
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }});
+
+    public void StartClick(View y) {
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        progressThread.start();
+    }
+
+    public void PausePlayClick(View z) {
+        // TODO https://stackoverflow.com/questions/16221382/stop-thread-onclicklistener-java
     }
 
 }
