@@ -13,25 +13,51 @@
     tools:context="com.example.dc.carmanager.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="65dp">
 
-        <TextView
-            android:text="From: "
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fromTextView"
-            android:paddingBottom="5dp"
-            android:textSize="18sp"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:text="To: "
+            <TextView
+                android:text="From: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fromTextView"
+                android:paddingBottom="5dp"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:text="To: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toTextView"
+                android:paddingTop="5dp"
+                android:textSize="18sp"
+                android:layout_below="@+id/fromTextView"
+                android:layout_alignParentStart="true" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toTextView"
-            android:paddingTop="5dp"
-            android:textSize="18sp"/>
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/progressSeekBar"
+                android:rotation="270"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -66,15 +92,6 @@
                     android:layout_centerHorizontal="true" />
 
                 <ImageView
-                    android:layout_width="173dp"
-                    android:layout_height="249dp"
-                    app:srcCompat="@drawable/car2"
-                    android:id="@+id/car"
-                    android:layout_above="@+id/doorBottom"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="14dp" />
-
-                <ImageView
                     android:layout_width="54dp"
                     android:layout_height="42dp"
                     app:srcCompat="@drawable/lock_closed"
@@ -82,6 +99,26 @@
                     android:layout_alignBottom="@+id/car"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="84dp" />
+
+                <ImageView
+                    android:layout_width="173dp"
+                    android:layout_height="249dp"
+                    app:srcCompat="@drawable/car2"
+                    android:id="@+id/car"
+                    android:layout_marginBottom="14dp"
+                    android:layout_above="@+id/doorBottom"
+                    android:layout_centerHorizontal="true" />
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/startImageButton"
+                    app:srcCompat="@drawable/startbutton"
+                    android:layout_alignTop="@+id/doorLeft"
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
         </LinearLayout>
