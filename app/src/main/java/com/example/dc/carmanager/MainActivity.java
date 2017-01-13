@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView tempTextView;
 
     // Auto
-    private ImageButton doorLeftImageButton;
-    private ImageButton doorRightImageButton;
-    private ImageButton doorBottomImageButton;
+    private ImageButton leftDoorImageButton;
+    private ImageButton rightDoorImageButton;
+    private ImageButton bottomDoorImageButton;
     private ImageButton startImageButton;
 
     // Buttons
@@ -86,11 +86,34 @@ public class MainActivity extends AppCompatActivity {
         tempTextView.setText(Integer.toString(savedTemp) + "° C");
         tempSeekBar.setProgress((savedTemp % 18));
 
-        // Auto
-        doorLeftImageButton = (ImageButton) findViewById(R.id.doorLeft);
-        doorRightImageButton = (ImageButton) findViewById(R.id.doorRight);
-        doorBottomImageButton = (ImageButton) findViewById(R.id.doorBottom);
+        // Auto / Doors
+        leftDoorImageButton = (ImageButton) findViewById(R.id.doorLeft);
+        rightDoorImageButton = (ImageButton) findViewById(R.id.doorRight);
+        bottomDoorImageButton = (ImageButton) findViewById(R.id.doorBottom);
         startImageButton = (ImageButton) findViewById(R.id.startImageButton);
+
+        Boolean savedLeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
+        Boolean savedRightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
+        Boolean savedBottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
+
+        if (savedLeftDoorLocked) {
+            leftDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+        else {
+            leftDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
+        if (savedRightDoorLocked) {
+            rightDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+        else {
+            rightDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
+        if (savedBottomDoorLocked) {
+            bottomDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+        else {
+            bottomDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
 
         // Buttons
         routeImageButton = (ImageButton) findViewById(R.id.routeImageButton);
@@ -145,16 +168,55 @@ public class MainActivity extends AppCompatActivity {
 
     // Door OnClick Listener
 
-    public void leftDoorClick() {
+    public void leftDoorClick(View v) {
+        // get saved door states
+        Boolean LeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
 
+        // change door state by changing the image
+        if (LeftDoorLocked) {
+            leftDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
+        else {
+            leftDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+
+        // save door state
+        prefseditor.putBoolean(LEFTDOORKEY, (!LeftDoorLocked));
+        prefseditor.commit();
     }
 
-    public void rightDoorClick() {
+    public void rightDoorClick(View w) {
+        // get saved door states
+        Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
 
+        // change door state by changing the image
+        if (RightDoorLocked) {
+            rightDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
+        else {
+            rightDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+
+        // save door state
+        prefseditor.putBoolean(RIGHTDOORKEY, (!RightDoorLocked));
+        prefseditor.commit();
     }
 
-    public void bottomDoorClick() {
-        
+    public void bottomDoorClick(View x) {
+        // get saved door states
+        Boolean BottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
+
+        // change door state by changing the image
+        if (BottomDoorLocked) {
+            bottomDoorImageButton.setImageResource(R.drawable.lock_open);
+        }
+        else {
+            bottomDoorImageButton.setImageResource(R.drawable.lock_closed);
+        }
+
+        // save door state
+        prefseditor.putBoolean(BOTTOMDOORKEY, (!BottomDoorLocked));
+        prefseditor.commit();
     }
 
 }

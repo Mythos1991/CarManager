@@ -102,12 +102,12 @@
                     android:adjustViewBounds="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/doorRight"
+                    android:id="@+id/doorBottom"
                     app:srcCompat="@drawable/lock_closed"
                     android:layout_below="@+id/car"
                     android:layout_centerHorizontal="true"
                     android:background="@android:color/transparent"
-                    android:onClick="rightDoorClick"/>
+                    android:onClick="bottomDoorClick"/>
 
                 <ImageButton
                     android:scaleType="fitCenter"
@@ -127,13 +127,13 @@
                     android:adjustViewBounds="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/doorBottom"
+                    android:id="@+id/doorRight"
                     app:srcCompat="@drawable/lock_closed"
                     android:layout_marginEnd="11dp"
                     android:layout_alignTop="@+id/doorLeft"
                     android:layout_alignParentEnd="true"
                     android:background="@android:color/transparent"
-                    android:onClick="bottomDoorClick"/>
+                    android:onClick="rightDoorClick"/>
 
             </RelativeLayout>
 
