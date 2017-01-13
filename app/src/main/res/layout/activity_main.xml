@@ -48,14 +48,17 @@
             android:layout_height="match_parent"
             android:layout_weight="3">
 
-            <SeekBar
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="1000dp"
-                android:id="@+id/progressSeekBar"
+                android:layout_height="wrap_content"
+                android:id="@+id/routeProgressBar"
                 android:rotation="270"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -75,39 +78,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="42dp"
-                    app:srcCompat="@drawable/lock_closed"
-                    android:id="@+id/doorRight"
-                    android:layout_alignTop="@+id/doorLeft"
-                    android:layout_alignParentEnd="true" />
-
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="42dp"
-                    app:srcCompat="@drawable/lock_closed"
-                    android:id="@+id/doorBottom"
-                    android:layout_marginBottom="26dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
-
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="42dp"
-                    app:srcCompat="@drawable/lock_closed"
-                    android:id="@+id/doorLeft"
-                    android:layout_alignBottom="@+id/car"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="84dp" />
-
-                <ImageView
                     android:layout_width="173dp"
                     android:layout_height="249dp"
                     app:srcCompat="@drawable/car2"
                     android:id="@+id/car"
-                    android:layout_marginBottom="14dp"
-                    android:layout_above="@+id/doorBottom"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp" />
 
                 <ImageButton
                     android:scaleType="fitCenter"
@@ -117,8 +94,47 @@
                     android:layout_height="60dp"
                     android:id="@+id/startImageButton"
                     app:srcCompat="@drawable/startbutton"
-                    android:layout_alignTop="@+id/doorLeft"
+                    android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/doorRight"
+                    app:srcCompat="@drawable/lock_closed"
+                    android:layout_below="@+id/car"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:onClick="rightDoorClick"/>
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/doorLeft"
+                    app:srcCompat="@drawable/lock_closed"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@android:color/transparent"
+                    android:onClick="leftDoorClick"/>
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/doorBottom"
+                    app:srcCompat="@drawable/lock_closed"
+                    android:layout_marginEnd="11dp"
+                    android:layout_alignTop="@+id/doorLeft"
+                    android:layout_alignParentEnd="true"
+                    android:background="@android:color/transparent"
+                    android:onClick="bottomDoorClick"/>
+
             </RelativeLayout>
 
         </LinearLayout>
@@ -137,7 +153,7 @@
                 <TextView
                     android:textSize="25sp"
                     android:gravity="center"
-                    android:text="100%"
+                    android:text="0%"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/fuelTextView"
