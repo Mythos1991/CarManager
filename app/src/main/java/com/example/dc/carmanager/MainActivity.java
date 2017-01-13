@@ -241,6 +241,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        // TODO make pausePlayImageButton invisible
+        // TODO save progress
+        // TODO change for loop to something else, start at last progress
     }});
 
     public void StartClick(View y) {
@@ -252,10 +256,12 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
 
         progressThread.start();
+        // TODO make pausePlayImageButton visible
     }
 
     public void PausePlayClick(View z) {
         // TODO https://stackoverflow.com/questions/16221382/stop-thread-onclicklistener-java
+        // TODO change button to play icon
     }
 
 }
