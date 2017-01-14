@@ -232,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
     // Thread to simulate progress while driving from A to B
     final Thread progressThread = new Thread(new Runnable() { public void run() {
         for (int i = 0; i <= 100; i++) {
+            // TODO if not interrupted
             routeProgressBar.setProgress(i);
 
             // sleep to simulate progress
