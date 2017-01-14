@@ -5,9 +5,9 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.dc.carmanager.MainActivity">
@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fromTextView"
                 android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
                 android:textSize="18sp"/>
 
             <TextView
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/toTextView"
                 android:paddingTop="5dp"
+                android:paddingLeft="10dp"
                 android:textSize="18sp"
                 android:layout_below="@+id/fromTextView"
                 android:layout_alignParentStart="true" />
@@ -232,33 +234,61 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_bottom"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/route_button"
-            android:id="@+id/routeImageButton"
-            android:layout_weight="0.25" />
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:layout_alignParentBottom="true"
+            android:minHeight="?attr/actionBarSize">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/panic"
-            android:id="@+id/panicImageButton"
-            android:layout_weight="1" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:orientation="horizontal">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/dots"
-            android:id="@+id/languageImageButton"
-            android:layout_weight="0.20" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/route_button"
+                    android:id="@+id/routeImageButton"
+                    android:onClick="startRouteActivity"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/panic"
+                    android:id="@+id/panicImageButton"
+                    android:layout_centerInParent="true"
+                    android:onClick="panicClick"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/dots"
+                    android:id="@+id/languageImageButton"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
     </LinearLayout>
+
 </LinearLayout>

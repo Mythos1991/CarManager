@@ -2,6 +2,7 @@ package com.example.dc.carmanager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -21,6 +23,7 @@ import java.util.Random;
 import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "com.example.dc.carmanager";
 
     // SharedPreferences
     SharedPreferences prefs;
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         fuelSeekBar.setMax((FUEL_MAX - FUEL_MIN) / FUEL_STEP);
         fuelTextView = (TextView) findViewById(R.id.fuelTextView);
-        int savedFuel = prefs.getInt(FUELKEY, -1);
+        int savedFuel = prefs.getInt(FUELKEY, 100);
         fuelTextView.setText(Integer.toString(savedFuel) + "%");
         fuelSeekBar.setProgress(savedFuel);
 
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         tempSeekBar.setMax((TEMP_MAX - TEMP_MIN) / TEMP_STEP);
         tempTextView = (TextView) findViewById(R.id.tempTextView);
-        int savedTemp = prefs.getInt(TEMPKEY, -1);
+        int savedTemp = prefs.getInt(TEMPKEY, 18);
         tempTextView.setText(Integer.toString(savedTemp) + "° C");
         tempSeekBar.setProgress((savedTemp % 18));
 
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         prefseditor.commit();
     }
 
-    public void rightDoorClick(View w) {
+    public void rightDoorClick(View v) {
         // get saved door states
         Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
 
@@ -212,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         prefseditor.commit();
     }
 
-    public void bottomDoorClick(View x) {
+    public void bottomDoorClick(View v) {
         // get saved door states
         Boolean BottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
 
@@ -227,6 +230,24 @@ public class MainActivity extends AppCompatActivity {
         // save door state
         prefseditor.putBoolean(BOTTOMDOORKEY, (!BottomDoorLocked));
         prefseditor.commit();
+    }
+
+    public void panicClick(View v) {
+        bottomDoorImageButton.setImageResource(R.drawable.lock_closed);
+        rightDoorImageButton.setImageResource(R.drawable.lock_closed);
+        leftDoorImageButton.setImageResource(R.drawable.lock_closed);
+
+        prefseditor.putBoolean(LEFTDOORKEY, true);
+        prefseditor.putBoolean(RIGHTDOORKEY, true);
+        prefseditor.putBoolean(BOTTOMDOORKEY, true);
+        prefseditor.commit();
+    }
+
+    public void startRouteActivity(View v) {
+        Intent intent = new Intent(this, Route.class);
+        String message = "testtesttest";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
     // Thread to simulate progress while driving from A to B
@@ -248,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO change for loop to something else, start at last progress
     }});
 
-    public void StartClick(View y) {
+    public void StartClick(View v) {
         Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
         int duration = Toast.LENGTH_SHORT;
@@ -260,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO make pausePlayImageButton visible
     }
 
-    public void PausePlayClick(View z) {
+    public void PausePlayClick(View v) {
         // TODO https://stackoverflow.com/questions/16221382/stop-thread-onclicklistener-java
         // TODO change button to play icon
     }
