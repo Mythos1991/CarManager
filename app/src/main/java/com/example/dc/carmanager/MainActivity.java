@@ -22,6 +22,14 @@ import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
+/*
+ *  TODO if startButton clicked: get current to/From values
+ *  TODO at end of progressThread update to/from, check if more targets remain
+ *  TODO set strings in values-* files (Standort / naechstes Ziel)
+ *  TODO implement languageButton with Spinner
+ *
+ */
+
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.dc.carmanager";
 
@@ -38,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView fromTextView;
     private TextView toTextView;
     private ProgressBar routeProgressBar;
-    private ImageButton pausePlayProgressImageButton;
 
     // Tank
     private SeekBar fuelSeekBar;
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton rightDoorImageButton;
     private ImageButton bottomDoorImageButton;
     private ImageButton startImageButton;
+    Boolean driving;
 
     // Buttons
     private ImageButton routeImageButton;
@@ -73,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         fromTextView = (TextView) findViewById(R.id.fromTextView);
         toTextView = (TextView) findViewById(R.id.toTextView);
         routeProgressBar = (ProgressBar) findViewById(R.id.routeProgressBar);
-        pausePlayProgressImageButton = (ImageButton) findViewById(R.id.pausePlayProgressImageButton);
+        routeProgressBar.setProgress(0);
 
         // Tank
         final int FUEL_STEP = 1;
@@ -104,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         rightDoorImageButton = (ImageButton) findViewById(R.id.doorRight);
         bottomDoorImageButton = (ImageButton) findViewById(R.id.doorBottom);
         startImageButton = (ImageButton) findViewById(R.id.startImageButton);
+        driving = false;
 
         Boolean savedLeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
         Boolean savedRightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
@@ -182,54 +191,60 @@ public class MainActivity extends AppCompatActivity {
     // Door OnClick Listener
 
     public void leftDoorClick(View v) {
-        // get saved door states
-        Boolean LeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
+        if (!driving) {
+            // get saved door states
+            Boolean LeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
 
-        // change door state by changing the image
-        if (LeftDoorLocked) {
-            leftDoorImageButton.setImageResource(R.drawable.lock_open);
-        }
-        else {
-            leftDoorImageButton.setImageResource(R.drawable.lock_closed);
-        }
+            // change door state by changing the image
+            if (LeftDoorLocked) {
+                leftDoorImageButton.setImageResource(R.drawable.lock_open);
+            }
+            else {
+                leftDoorImageButton.setImageResource(R.drawable.lock_closed);
+            }
 
-        // save door state
-        prefseditor.putBoolean(LEFTDOORKEY, (!LeftDoorLocked));
-        prefseditor.commit();
+            // save door state
+            prefseditor.putBoolean(LEFTDOORKEY, (!LeftDoorLocked));
+            prefseditor.commit();
+        }
     }
 
     public void rightDoorClick(View v) {
-        // get saved door states
-        Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
+        if (!driving) {
+            // get saved door states
+            Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
 
-        // change door state by changing the image
-        if (RightDoorLocked) {
-            rightDoorImageButton.setImageResource(R.drawable.lock_open);
-        }
-        else {
-            rightDoorImageButton.setImageResource(R.drawable.lock_closed);
-        }
+            // change door state by changing the image
+            if (RightDoorLocked) {
+                rightDoorImageButton.setImageResource(R.drawable.lock_open);
+            }
+            else {
+                rightDoorImageButton.setImageResource(R.drawable.lock_closed);
+            }
 
-        // save door state
-        prefseditor.putBoolean(RIGHTDOORKEY, (!RightDoorLocked));
-        prefseditor.commit();
+            // save door state
+            prefseditor.putBoolean(RIGHTDOORKEY, (!RightDoorLocked));
+            prefseditor.commit();
+        }
     }
 
     public void bottomDoorClick(View v) {
-        // get saved door states
-        Boolean BottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
+        if (!driving) {
+            // get saved door states
+            Boolean BottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
 
-        // change door state by changing the image
-        if (BottomDoorLocked) {
-            bottomDoorImageButton.setImageResource(R.drawable.lock_open);
-        }
-        else {
-            bottomDoorImageButton.setImageResource(R.drawable.lock_closed);
-        }
+            // change door state by changing the image
+            if (BottomDoorLocked) {
+                bottomDoorImageButton.setImageResource(R.drawable.lock_open);
+            }
+            else {
+                bottomDoorImageButton.setImageResource(R.drawable.lock_closed);
+            }
 
-        // save door state
-        prefseditor.putBoolean(BOTTOMDOORKEY, (!BottomDoorLocked));
-        prefseditor.commit();
+            // save door state
+            prefseditor.putBoolean(BOTTOMDOORKEY, (!BottomDoorLocked));
+            prefseditor.commit();
+        }
     }
 
     public void panicClick(View v) {
@@ -253,9 +268,8 @@ public class MainActivity extends AppCompatActivity {
     // Thread to simulate progress while driving from A to B
     final Thread progressThread = new Thread(new Runnable() { public void run() {
         for (int i = 0; i <= 100; i++) {
-            // TODO if not interrupted
+            // display progress
             routeProgressBar.setProgress(i);
-
             // sleep to simulate progress
             try {
                 Thread.sleep(100);
@@ -264,26 +278,63 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // TODO make pausePlayImageButton invisible
-        // TODO save progress
-        // TODO change for loop to something else, start at last progress
+        driving = false;
+
+        routeProgressBar.setProgress(0);
+
+        startImageButton.getHandler().post(new Runnable() {
+            public void run() {
+                startImageButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        int amountFuel = prefs.getInt(FUELKEY, 90) - 10;
+        if (amountFuel < 0) {
+            amountFuel = 0;
+        }
+        prefseditor.putInt(FUELKEY, amountFuel);
+        prefseditor.commit();
+
+        fuelTextView.getHandler().post(new Runnable() {
+            public void run() {
+                int amountFuel = prefs.getInt(FUELKEY, 90);
+                fuelTextView.setText(amountFuel + "%");
+            }
+        });
+
+        fuelSeekBar.getHandler().post(new Runnable() {
+            public void run() {
+                int amountFuel = prefs.getInt(FUELKEY, 90);
+                fuelSeekBar.setProgress(amountFuel);
+            }
+        });
     }});
 
     public void StartClick(View v) {
-        Context context = getApplicationContext();
-        CharSequence text = "Hello toast!";
-        int duration = Toast.LENGTH_SHORT;
+        if ((!driving)) {
+            Boolean BottomDoorLocked = prefs.getBoolean(BOTTOMDOORKEY, true);
+            Boolean LeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
+            Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
+            int amountFuel = prefs.getInt(FUELKEY, -1);
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+            // TODO if route configured
+            if (BottomDoorLocked && LeftDoorLocked && RightDoorLocked && (amountFuel > 0)) {
+                driving = true;
+                startImageButton.setVisibility(View.INVISIBLE);
 
-        progressThread.start();
-        // TODO make pausePlayImageButton visible
+                progressThread.start();
+            }
+            else {
+                Context context = getApplicationContext();
+                CharSequence text = "Bitte alle Türen schließen, tanken und die Route einstellen";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
+        else {
+
+        }
     }
-
-    public void PausePlayClick(View v) {
-        // TODO https://stackoverflow.com/questions/16221382/stop-thread-onclicklistener-java
-        // TODO change button to play icon
-    }
-
 }
