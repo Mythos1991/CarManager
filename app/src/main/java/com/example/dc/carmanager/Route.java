@@ -102,6 +102,7 @@ public class Route extends Activity implements View.OnClickListener {
         tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
+        if(!tv_b[10].getText().toString().equals("Startort Eingeben")) setstartort=true;
         //lv= (ListView) findViewById(R.id.ListView1);
 
         for(int i=0;i<10;i++){
@@ -123,8 +124,8 @@ public class Route extends Activity implements View.OnClickListener {
 
 
             Intent intent = new Intent(this, POI.class);
-
-            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
+            if(setstartort)intent.putExtra(EXTRA_MESSAGE, -1);
+            else intent.putExtra( EXTRA_MESSAGE , (anzahl));
             startActivity(intent);
         }
 
