@@ -1,32 +1,19 @@
 package com.example.dc.carmanager;
 
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // TODO onWhateverClick: variable, wenn button einmal geklickt, code nicht nochmal ausführen
 // TODO onAllClick: anderen 3 Buttons resetten, variable zurücksetzen ^
@@ -61,10 +48,10 @@ public class POI extends AppCompatActivity {
         JSONObject obj4 = new JSONObject();
 
         try {
-            obj1.put("NAME", "Anton");
-            obj2.put("NAME", "Beate");
-            obj3.put("NAME", "Can");
-            obj4.put("NAME", "Dorothy");
+            obj1.put("name", "Anton");
+            obj2.put("name", "Beate");
+            obj3.put("name", "Can");
+            obj4.put("name", "Dorothy");
         } catch (JSONException e) {
             e.printStackTrace();
         }

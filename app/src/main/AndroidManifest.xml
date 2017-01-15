@@ -18,5 +18,6 @@
         <activity android:name=".Route" />
         <activity android:name=".POI"></activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

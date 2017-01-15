@@ -27,6 +27,7 @@ import static java.lang.Thread.sleep;
  *  TODO at end of progressThread update to/from, check if more targets remain
  *  TODO set strings in values-* files (Standort / naechstes Ziel)
  *  TODO implement languageButton with Spinner
+ *  TODO Toast that informs the user what happens when he clicks the StartButton
  *
  */
 
