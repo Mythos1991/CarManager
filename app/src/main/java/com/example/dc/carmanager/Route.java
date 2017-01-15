@@ -22,11 +22,11 @@ public class Route extends Activity implements View.OnClickListener {
     private int anzahl=0;
     private boolean setstartort = false;
 
-    final private String[] textviewkey={"textview0key","textview1key",
+    final public static String[] textviewkey={"textview0key","textview1key",
             "textview2key","textview3key", "textview4key",
             "textview5key", "textview6key", "textview7key",
             "textview8key", "textview9key","startkey"};
-    final private String anzahlkey="anzahlkey";
+    final public static String anzahlkey="anzahlkey";
 
 
     public static TextView [] tv_a = new TextView[10];
@@ -102,8 +102,10 @@ public class Route extends Activity implements View.OnClickListener {
         tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
-        if(!tv_b[10].getText().toString().equals("Startort Eingeben")) setstartort=true;
-        //lv= (ListView) findViewById(R.id.ListView1);
+
+        if(!(tv_b[10].getText().equals("Startort Eingeben"))) {
+            setstartort=true;
+        }
 
         for(int i=0;i<10;i++){
             del[i].setOnClickListener(this);
@@ -117,6 +119,31 @@ public class Route extends Activity implements View.OnClickListener {
 
 
 
+    }
+
+
+    protected void onResume(Bundle savedInstanceState){
+
+        for(int i=0;i<10;i++){
+            tv_b[i].setText(prefs.getString(textviewkey[i], " "));
+            prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
+
+        }
+        tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
+        prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
+        prefseditor.commit();
+
+        if(!(tv_b[10].getText().equals("Startort Eingeben"))) {
+            setstartort=true;
+        }
+
+        anzahl = prefs.getInt(anzahlkey, 0);
+
+        for(int i=10; i>anzahl;i--){
+            del[i-1].setVisibility(View.INVISIBLE);
+            tv_b[i-1].setVisibility(View.INVISIBLE);
+            tv_a[i-1].setVisibility(View.INVISIBLE);
+        }
     }
 
     public void add (View v) {
