@@ -99,7 +99,7 @@ class CustomAdapter extends ArrayAdapter<JSONObject> {
             capacityTextView.setText(" ");
         }
         else {
-            capacityTextView.setText(capacity);
+            capacityTextView.setText("Capactiy: " + capacity);
         }
 
         // Display icon, if available
@@ -111,17 +111,27 @@ class CustomAdapter extends ArrayAdapter<JSONObject> {
         }
         ImageView iconImageView = (ImageView) customView.findViewById(R.id.iconImageView);
         if (icon.equals("-1")) {
-            DownloadImageTask imgdl = new DownloadImageTask();
-            imgdl.start();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (type == "fuel") {
+                iconImageView.setImageResource(R.drawable.fuel);
             }
-            iconImageView.setImageBitmap(imgdl.getBitmap());
+            else if (type == "pub") {
+                iconImageView.setImageResource(R.drawable.pub);
+            }
+
         }
         else {
+            DownloadImageTask imgdl = new DownloadImageTask(icon);
+            imgdl.start();
+            /* try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } */
 
+            while (imgdl.isAlive()) {
+
+            }
+            iconImageView.setImageBitmap(imgdl.getBitmap());
         }
 
         return customView;

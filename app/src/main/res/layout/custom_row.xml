@@ -24,7 +24,7 @@
             android:layout_width="259dp"
             android:layout_height="wrap_content"
             android:id="@+id/nameTextView"
-            android:layout_margin="5dp"
+            android:layout_margin="1dp"
             android:layout_weight="1" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/addressTextView"
             android:layout_weight="1"
-            android:layout_margin="5dp" />
+            android:layout_margin="1dp" />
 
         <TextView
             android:text="TextView"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/coordTextView"
             android:layout_weight="1"
-            android:layout_margin="5dp" />
+            android:layout_margin="1dp" />
 
         <TextView
             android:text="TextView"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/capacityTextView"
             android:layout_weight="1"
-            android:layout_margin="5dp" />
+            android:layout_margin="1dp" />
     </LinearLayout>
 
 </LinearLayout>
