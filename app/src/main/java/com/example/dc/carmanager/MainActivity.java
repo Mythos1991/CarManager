@@ -34,7 +34,7 @@ import static java.lang.Thread.sleep;
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.dc.carmanager";
 
-    // SharedPreferences
+    // SharedPreferencesa
     SharedPreferences prefs;
     SharedPreferences.Editor prefseditor;
     final String FUELKEY = "fuelkey";
