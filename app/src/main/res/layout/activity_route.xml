@@ -315,13 +315,6 @@
         android:layout_alignEnd="@+id/button_save"
         android:layout_toEndOf="@+id/Start" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:id="@+id/ListView1" />
 
 
 </RelativeLayout>

@@ -3,13 +3,12 @@ package com.example.dc.carmanager;
 import android.app.Activity;
 import org.json.*;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +19,15 @@ public class Route extends Activity implements View.OnClickListener {
 
     private int anzahl=0;
 
+    final private String[] textviewkey={"textview0key","textview1key",
+            "textview2key","textview3key", "textview4key",
+            "textview5key", "textview6key", "textview7key",
+            "textview8key", "textview9key"};
+    final private String anzahlkey="anzahlkey" , startkey="startkey";
+    private String startbuttonstr = "Start Eingeben";
+
+
+    private String key = "key";
     TextView [] tv_a = new TextView[10];
     TextView [] tv_b = new TextView[10];
     Button [] del = new Button[10];
@@ -35,6 +43,8 @@ public class Route extends Activity implements View.OnClickListener {
 
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
+
+        anzahl = prefs.getInt(anzahlkey, 0);
 
         add=(Button) findViewById(R.id.button_add);
 
@@ -75,7 +85,12 @@ public class Route extends Activity implements View.OnClickListener {
 
         startbutton = (Button) findViewById(R.id.bstart);
 
-        lv= (ListView) findViewById(R.id.ListView1);
+        startbutton.setText(prefs.getString(startkey, startbuttonstr));
+        for(int i=0;i<10;i++){
+            tv_b[i].setText(prefs.getString(textviewkey[i], " "));
+        }
+
+        //lv= (ListView) findViewById(R.id.ListView1);
 
         for(int i=0;i<10;i++){
             del[i].setOnClickListener(this);
@@ -87,6 +102,7 @@ public class Route extends Activity implements View.OnClickListener {
             tv_a[i-1].setVisibility(View.INVISIBLE);
         }
 
+
     }
 
     public void add (View v) {
@@ -95,6 +111,8 @@ public class Route extends Activity implements View.OnClickListener {
             tv_b[anzahl].setVisibility(v.VISIBLE);
             del [anzahl].setVisibility(v.VISIBLE);
             anzahl=anzahl+1;
+            prefseditor.putInt(anzahlkey, anzahl);
+            prefseditor.commit();
         }
 
     }
@@ -113,6 +131,8 @@ public class Route extends Activity implements View.OnClickListener {
             tv_b[pos].setVisibility(View.INVISIBLE);
             del[pos].setVisibility(View.INVISIBLE);
             anzahl--;
+            prefseditor.putInt(anzahlkey, anzahl);
+            prefseditor.commit();
         }
 
     }
@@ -171,27 +191,23 @@ public class Route extends Activity implements View.OnClickListener {
 
     public void start(View view) {
         if(startbutton.getText().equals("Startort Eingeben")){
-            lv.setVisibility(view.VISIBLE);
+            //lv.setVisibility(view.VISIBLE);
         }
 
     }
 
     public void save(View view) {
-
-
-    }
-
-    public void JsonData() throws JSONException {
-
-
-        JSONObject obj = new JSONObject(" .... ");
-        String pageName = obj.getJSONObject("pageInfo").getString("pageName");
-
-        JSONArray arr = obj.getJSONArray("posts");
-        for (int i = 0; i < arr.length(); i++) {
-            String post_id = arr.getJSONObject(i).getString("post_id");
-
+        Bundle b = new Bundle();
+        String str[] = new String[11];
+        str[0] = startbutton.getText().toString();
+        for(int i=1;i<str.length; i++){
+            str[i]=tv_b[i-1].getText().toString();
         }
-
+        b.putStringArray(key , str);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
+
+
 }
