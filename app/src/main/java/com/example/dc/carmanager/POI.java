@@ -31,7 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-// TODO onItemCLickListener
+// TODO onItemCLickListener add to Route activity
 
 public class POI extends AppCompatActivity {
     ArrayList<JSONObject> allPOIs, pubPOIs, fuelPOIs, amenityPOIs;

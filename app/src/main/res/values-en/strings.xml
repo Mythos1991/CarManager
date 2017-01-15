@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CarManager</string>
     <string name="from">From</string>
-    <string name="to">To</string>
     <string name="starterror">Make sure you have all the doors closed, at least 1% fuel left and that you have selected a route.</string>
+    <string name="to">To</string>
     <string name="startsuccessful">Drive begins!</string>
     <string name="drivefinished">You arrived at your destination!</string>
 </resources>

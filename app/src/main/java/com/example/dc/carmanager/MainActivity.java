@@ -25,16 +25,14 @@ import static java.lang.Thread.sleep;
 /*
  *  TODO if startButton clicked: get current to/From values
  *  TODO at end of progressThread update to/from, check if more targets remain
- *  TODO set strings in values-* files (Standort / naechstes Ziel)
- *  TODO implement languageButton with Spinner
- *  TODO Toast that informs the user what happens when he clicks the StartButton
+ *  TODO Strings from other Activities in values-*
  *
  */
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.dc.carmanager";
 
-    // SharedPreferencesa
+    // SharedPreferences
     SharedPreferences prefs;
     SharedPreferences.Editor prefseditor;
     final String FUELKEY = "fuelkey";
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     final String LEFTDOORKEY = "leftdoorkey";
     final String RIGHTDOORKEY = "rightdoorkey";
     final String BOTTOMDOORKEY = "bottomdoorkey";
+    final String LANGUAGEKEY = "languagekey";
 
     // Route
     private TextView fromTextView;
@@ -77,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // SharedPreferences
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
+        String lang = prefs.getString(LANGUAGEKEY, "de");
 
         // Route
         fromTextView = (TextView) findViewById(R.id.fromTextView);
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeLanguage(View v) {
-        Intent intent = new Intent(this, POI.class);
+        Intent intent = new Intent(this, Settings.class);
         String message = "testtesttest";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
@@ -330,14 +330,17 @@ public class MainActivity extends AppCompatActivity {
                 driving = true;
                 startImageButton.setVisibility(View.INVISIBLE);
 
+                Context context = getApplicationContext();
+                String message = context.getString(R.string.startsuccessful);
+                Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+                toast.show();
+
                 progressThread.start();
             }
             else {
                 Context context = getApplicationContext();
-                CharSequence text = "Bitte alle Türen schließen, tanken und die Route einstellen";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
+                String message = context.getString(R.string.starterror);
+                Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
