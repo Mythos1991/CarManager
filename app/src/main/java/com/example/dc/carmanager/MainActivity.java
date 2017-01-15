@@ -265,6 +265,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void changeLanguage(View v) {
+        Intent intent = new Intent(this, POI.class);
+        String message = "testtesttest";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
     // Thread to simulate progress while driving from A to B
     final Thread progressThread = new Thread(new Runnable() { public void run() {
         for (int i = 0; i <= 100; i++) {
