@@ -1,6 +1,8 @@
 package com.example.dc.carmanager;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Environment;
@@ -31,9 +33,19 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import static com.example.dc.carmanager.Route.tv_a;
+import static com.example.dc.carmanager.Route.tv_b;
+import static com.example.dc.carmanager.Route.del;
+
+import static com.example.dc.carmanager.MainActivity.EXTRA_MESSAGE;
+
 // TODO onItemCLickListener add to Route activity
 
 public class POI extends AppCompatActivity {
+    // SharedPreferences
+    SharedPreferences prefs;
+    SharedPreferences.Editor prefseditor;
+
     ArrayList<JSONObject> allPOIs, pubPOIs, fuelPOIs, amenityPOIs;
 
     RadioButton allRadioButton;
@@ -45,6 +57,9 @@ public class POI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poi);
+
+        prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
+        prefseditor = prefs.edit();
 
         allRadioButton = (RadioButton) findViewById(R.id.allRadioButton);
         pubRadioButton = (RadioButton) findViewById(R.id.pubRadioButton);
@@ -68,8 +83,7 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String toastText = String.valueOf(parent.getItemAtPosition(position)).toString();
-                        Toast.makeText(POI.this, toastText, Toast.LENGTH_SHORT).show();
+                        setGoal(position);
                     }
                 }
         );
@@ -89,8 +103,7 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String toastText = String.valueOf(parent.getItemAtPosition(position)).toString();
-                        Toast.makeText(POI.this, toastText, Toast.LENGTH_SHORT).show();
+                        setGoal(position);
                     }
                 }
         );
@@ -111,8 +124,7 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String toastText = String.valueOf(parent.getItemAtPosition(position)).toString();
-                        Toast.makeText(POI.this, toastText, Toast.LENGTH_SHORT).show();
+                        setGoal(position);
                     }
                 }
         );
@@ -133,13 +145,44 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String toastText = String.valueOf(parent.getItemAtPosition(position)).toString();
-                        Toast.makeText(POI.this, toastText, Toast.LENGTH_SHORT).show();
+                        setGoal(position);
                     }
                 }
         );
 
     }
+
+    private void setGoal(int position) {
+        Intent intent = getIntent();
+        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
+
+        if (message == -1) {
+            try {
+                tv_b[10].setText(allPOIs.get(position).get("name").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            tv_a[message].setVisibility(View.VISIBLE);
+            tv_b[message].setVisibility(View.VISIBLE);
+            del[message].setVisibility(View.VISIBLE);
+            try {
+                tv_b[message].setText(allPOIs.get(position).get("name").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        message = message + 1;
+        prefseditor.putInt("anzahlkey", message);
+        prefseditor.commit();
+
+        finish();
+    }
+
+
+
 
     private void init() {
         allPOIs = new ArrayList<>();
