@@ -83,7 +83,32 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        setGoal(position);
+                        Intent intent = getIntent();
+                        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
+
+                        if (message == -1) {
+                            try {
+                                tv_b[10].setText(allPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            tv_a[message].setVisibility(View.VISIBLE);
+                            tv_b[message].setVisibility(View.VISIBLE);
+                            del[message].setVisibility(View.VISIBLE);
+                            try {
+                                tv_b[message].setText(allPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        message = message + 1;
+                        prefseditor.putInt("anzahlkey", message);
+                        prefseditor.commit();
+
+                        finish();
                     }
                 }
         );
@@ -103,7 +128,32 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        setGoal(position);
+                        Intent intent = getIntent();
+                        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
+
+                        if (message == -1) {
+                            try {
+                                tv_b[10].setText(pubPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            tv_a[message].setVisibility(View.VISIBLE);
+                            tv_b[message].setVisibility(View.VISIBLE);
+                            del[message].setVisibility(View.VISIBLE);
+                            try {
+                                tv_b[message].setText(pubPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        message = message + 1;
+                        prefseditor.putInt("anzahlkey", message);
+                        prefseditor.commit();
+
+                        finish();
                     }
                 }
         );
@@ -124,7 +174,32 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        setGoal(position);
+                        Intent intent = getIntent();
+                        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
+
+                        if (message == -1) {
+                            try {
+                                tv_b[10].setText(fuelPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            tv_a[message].setVisibility(View.VISIBLE);
+                            tv_b[message].setVisibility(View.VISIBLE);
+                            del[message].setVisibility(View.VISIBLE);
+                            try {
+                                tv_b[message].setText(fuelPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        message = message + 1;
+                        prefseditor.putInt("anzahlkey", message);
+                        prefseditor.commit();
+
+                        finish();
                     }
                 }
         );
@@ -145,40 +220,36 @@ public class POI extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        setGoal(position);
+                        Intent intent = getIntent();
+                        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
+
+                        if (message == -1) {
+                            try {
+                                tv_b[10].setText(amenityPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            tv_a[message].setVisibility(View.VISIBLE);
+                            tv_b[message].setVisibility(View.VISIBLE);
+                            del[message].setVisibility(View.VISIBLE);
+                            try {
+                                tv_b[message].setText(amenityPOIs.get(position).get("name").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        message = message + 1;
+                        prefseditor.putInt("anzahlkey", message);
+                        prefseditor.commit();
+
+                        finish();
                     }
                 }
         );
 
-    }
-
-    private void setGoal(int position) {
-        Intent intent = getIntent();
-        int message = intent.getIntExtra(EXTRA_MESSAGE, -2);
-
-        if (message == -1) {
-            try {
-                tv_b[10].setText(allPOIs.get(position).get("name").toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            tv_a[message].setVisibility(View.VISIBLE);
-            tv_b[message].setVisibility(View.VISIBLE);
-            del[message].setVisibility(View.VISIBLE);
-            try {
-                tv_b[message].setText(allPOIs.get(position).get("name").toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        message = message + 1;
-        prefseditor.putInt("anzahlkey", message);
-        prefseditor.commit();
-
-        finish();
     }
 
 
