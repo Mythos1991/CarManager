@@ -28,10 +28,11 @@ public class Route extends Activity implements View.OnClickListener {
 
 
     private String key = "key";
-    TextView [] tv_a = new TextView[10];
-    TextView [] tv_b = new TextView[10];
-    Button [] del = new Button[10];
-    Button add, save, startbutton;
+    public static TextView [] tv_a = new TextView[10];
+    public static TextView [] tv_b = new TextView[10];
+    public static Button [] del = new Button[10];
+    Button add, save;
+    public static Button startbutton;
     ListView lv;
 
 
@@ -88,6 +89,8 @@ public class Route extends Activity implements View.OnClickListener {
         startbutton.setText(prefs.getString(startkey, startbuttonstr));
         for(int i=0;i<10;i++){
             tv_b[i].setText(prefs.getString(textviewkey[i], " "));
+            prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
+            prefseditor.commit();
         }
 
         //lv= (ListView) findViewById(R.id.ListView1);
@@ -126,7 +129,7 @@ public class Route extends Activity implements View.OnClickListener {
                 diff--;
                 pos++;
             }
-            tv_b[pos].setText("Ziel Eingeben");
+
             tv_a[pos].setVisibility(View.INVISIBLE);
             tv_b[pos].setVisibility(View.INVISIBLE);
             del[pos].setVisibility(View.INVISIBLE);
