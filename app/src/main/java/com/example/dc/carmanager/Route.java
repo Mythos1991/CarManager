@@ -19,18 +19,16 @@ public class Route extends Activity implements View.OnClickListener {
     SharedPreferences prefs;
     SharedPreferences.Editor prefseditor;
 
-    private int anzahl=-1;
-    private boolean startort=false;
+    private int anzahl=0;
+    private boolean setstartort = false;
 
     final private String[] textviewkey={"textview0key","textview1key",
             "textview2key","textview3key", "textview4key",
             "textview5key", "textview6key", "textview7key",
             "textview8key", "textview9key","startkey"};
     final private String anzahlkey="anzahlkey";
-    private String startbuttonstr = "Start Eingeben";
 
 
-    private String key = "key";
     public static TextView [] tv_a = new TextView[10];
     public static TextView [] tv_b = new TextView[11];
     public static Button [] del = new Button[10];
@@ -48,6 +46,12 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor = prefs.edit();
 
         anzahl = prefs.getInt(anzahlkey, 0);
+
+        Intent intent= getIntent();
+        int pruef = intent.getIntExtra(EXTRA_MESSAGE, -2);
+        if(pruef>=0 && pruef<10) anzahl=pruef;
+        prefseditor.putInt(anzahlkey, anzahl);
+        prefseditor.commit();
 
         add=(Button) findViewById(R.id.button_add);
 
@@ -90,12 +94,14 @@ public class Route extends Activity implements View.OnClickListener {
 
 
 
-        for(int i=0;i<11;i++){
+        for(int i=0;i<10;i++){
             tv_b[i].setText(prefs.getString(textviewkey[i], " "));
             prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
-            prefseditor.commit();
-        }
 
+        }
+        tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
+        prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
+        prefseditor.commit();
         //lv= (ListView) findViewById(R.id.ListView1);
 
         for(int i=0;i<10;i++){
@@ -109,18 +115,16 @@ public class Route extends Activity implements View.OnClickListener {
         }
 
 
+
     }
 
     public void add (View v) {
         if (anzahl<10){
 
-            anzahl=anzahl+1;
 
             Intent intent = new Intent(this, POI.class);
-            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
 
-            prefseditor.putInt(anzahlkey, anzahl);
-            prefseditor.commit();
+            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
             startActivity(intent);
         }
 
