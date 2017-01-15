@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.example.dc.carmanager.MainActivity.EXTRA_MESSAGE;
+
 public class Route extends Activity implements View.OnClickListener {
     SharedPreferences prefs;
     SharedPreferences.Editor prefseditor;
@@ -110,12 +112,15 @@ public class Route extends Activity implements View.OnClickListener {
 
     public void add (View v) {
         if (anzahl<10){
-            tv_a[anzahl].setVisibility(v.VISIBLE);
-            tv_b[anzahl].setVisibility(v.VISIBLE);
-            del [anzahl].setVisibility(v.VISIBLE);
+
             anzahl=anzahl+1;
+
+            Intent intent = new Intent(this, POI.class);
+            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
+
             prefseditor.putInt(anzahlkey, anzahl);
             prefseditor.commit();
+            startActivity(intent);
         }
 
     }
@@ -126,10 +131,13 @@ public class Route extends Activity implements View.OnClickListener {
         if(diff>=0){
             while(diff>0){
                 tv_b[pos].setText(tv_b[pos+1].getText());
+                prefseditor.putString(textviewkey[pos], tv_b[pos].getText().toString());
                 diff--;
                 pos++;
             }
-
+            tv_b[pos].setText(" ");
+            prefseditor.putString(textviewkey[pos], tv_b[pos].getText().toString());
+            prefseditor.commit();
             tv_a[pos].setVisibility(View.INVISIBLE);
             tv_b[pos].setVisibility(View.INVISIBLE);
             del[pos].setVisibility(View.INVISIBLE);
@@ -194,10 +202,13 @@ public class Route extends Activity implements View.OnClickListener {
 
     public void start(View view) {
         if(startbutton.getText().equals("Startort Eingeben")){
-            //lv.setVisibility(view.VISIBLE);
+            Intent intent = new Intent(this, POI.class);
+            intent.putExtra( EXTRA_MESSAGE , (-1));
+            startActivity(intent);
         }
 
     }
+
 
     public void save(View view) {
         Bundle b = new Bundle();
@@ -206,7 +217,7 @@ public class Route extends Activity implements View.OnClickListener {
         for(int i=1;i<str.length; i++){
             str[i]=tv_b[i-1].getText().toString();
         }
-        b.putStringArray(key , str);
+        b.putStringArray(EXTRA_MESSAGE , str);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(b);
         startActivity(intent);
