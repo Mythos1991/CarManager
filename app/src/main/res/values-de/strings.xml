@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CarManager</string>
+    <string name="from">Von</string>
+    <string name="to">Nach</string>
+    <string name="starterror">Bitte sicherstellen, dass alle Türen geschlossen, der Tank nicht leer und eine Route eingestellt ist.</string>
+    <string name="startsuccessful">Fahrt beginnt!</string>
+    <string name="drivefinished">Sie sind am Ziel angelangt!</string>
+</resources>
