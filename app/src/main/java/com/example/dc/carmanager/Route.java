@@ -20,21 +20,19 @@ public class Route extends Activity implements View.OnClickListener {
     SharedPreferences.Editor prefseditor;
 
     private int anzahl=0;
+    private boolean setstartort = false;
 
     final private String[] textviewkey={"textview0key","textview1key",
             "textview2key","textview3key", "textview4key",
             "textview5key", "textview6key", "textview7key",
-            "textview8key", "textview9key"};
-    final private String anzahlkey="anzahlkey" , startkey="startkey";
-    private String startbuttonstr = "Start Eingeben";
+            "textview8key", "textview9key","startkey"};
+    final private String anzahlkey="anzahlkey";
 
 
-    private String key = "key";
     public static TextView [] tv_a = new TextView[10];
-    public static TextView [] tv_b = new TextView[10];
+    public static TextView [] tv_b = new TextView[11];
     public static Button [] del = new Button[10];
     Button add, save;
-    public static Button startbutton;
     ListView lv;
 
 
@@ -48,6 +46,12 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor = prefs.edit();
 
         anzahl = prefs.getInt(anzahlkey, 0);
+
+        Intent intent= getIntent();
+        int pruef = intent.getIntExtra(EXTRA_MESSAGE, -2);
+        if(pruef>=0 && pruef<10) anzahl=pruef;
+        prefseditor.putInt(anzahlkey, anzahl);
+        prefseditor.commit();
 
         add=(Button) findViewById(R.id.button_add);
 
@@ -73,6 +77,7 @@ public class Route extends Activity implements View.OnClickListener {
         tv_b[7] = (TextView) findViewById(R.id.textView27);
         tv_b[8] = (TextView) findViewById(R.id.textView28);
         tv_b[9] = (TextView) findViewById(R.id.textView29);
+        tv_b[10] = (TextView) findViewById(R.id.StartTextview);
 
 
         del[0] = (Button) findViewById(R.id.button1);
@@ -86,15 +91,17 @@ public class Route extends Activity implements View.OnClickListener {
         del[8] = (Button) findViewById(R.id.button9);
         del[9] = (Button) findViewById(R.id.button10);
 
-        startbutton = (Button) findViewById(R.id.bstart);
 
-        startbutton.setText(prefs.getString(startkey, startbuttonstr));
+
+
         for(int i=0;i<10;i++){
             tv_b[i].setText(prefs.getString(textviewkey[i], " "));
             prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
-            prefseditor.commit();
-        }
 
+        }
+        tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
+        prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
+        prefseditor.commit();
         //lv= (ListView) findViewById(R.id.ListView1);
 
         for(int i=0;i<10;i++){
@@ -108,18 +115,16 @@ public class Route extends Activity implements View.OnClickListener {
         }
 
 
+
     }
 
     public void add (View v) {
         if (anzahl<10){
 
-            anzahl=anzahl+1;
 
             Intent intent = new Intent(this, POI.class);
-            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
 
-            prefseditor.putInt(anzahlkey, anzahl);
-            prefseditor.commit();
+            intent.putExtra( EXTRA_MESSAGE , (anzahl-1));
             startActivity(intent);
         }
 
@@ -200,20 +205,13 @@ public class Route extends Activity implements View.OnClickListener {
         }
     }
 
-    public void start(View view) {
-        if(startbutton.getText().equals("Startort Eingeben")){
-            Intent intent = new Intent(this, POI.class);
-            intent.putExtra( EXTRA_MESSAGE , (-1));
-            startActivity(intent);
-        }
 
-    }
 
 
     public void save(View view) {
         Bundle b = new Bundle();
         String str[] = new String[11];
-        str[0] = startbutton.getText().toString();
+        str[0] = tv_b[10].getText().toString();
         for(int i=1;i<str.length; i++){
             str[i]=tv_b[i-1].getText().toString();
         }
