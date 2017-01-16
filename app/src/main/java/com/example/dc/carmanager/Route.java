@@ -96,9 +96,10 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
 
-        if((tv_b[10].getText().equals("Startort Eingeben"))) {
+        if((tv_b[10].getText().equals("Startort Eingeben"))||tv_b[10].getText().equals(" ")) {
             setstartort=false;
         }
+
         else{
             setstartort=true;
         }
@@ -131,7 +132,7 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
 
-        if((tv_b[10].getText().equals("Startort Eingeben"))) {
+        if((tv_b[10].getText().equals("Startort Eingeben"))||tv_b[10].getText().equals(" ")) {
             setstartort=false;
         }
         else{
@@ -148,12 +149,16 @@ public class Route extends Activity implements View.OnClickListener {
     }
 
     public void add (View v) {
+
         if (anzahl<10){
 
             Intent intent = new Intent(this, POI.class);
             if(setstartort)intent.putExtra(EXTRA_MESSAGE, (anzahl));
             else intent.putExtra( EXTRA_MESSAGE , (-1));
             startActivity(intent);
+
+        }
+        else{
 
         }
 
