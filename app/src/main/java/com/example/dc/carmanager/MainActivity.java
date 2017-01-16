@@ -325,14 +325,29 @@ public class MainActivity extends AppCompatActivity {
         if (anzahl < 0) {
             anzahl = 0;
         }
-        prefseditor.putString(textviewkey[10], tv_b[0].getText().toString());
+        prefseditor.putString(textviewkey[10], prefs.getString(textviewkey[0], ""));
         for (int i = 0; i < 8; i++) {
-            prefseditor.putString(textviewkey[i], tv_b[i+1].getText().toString());
+            prefseditor.putString(textviewkey[i], prefs.getString(textviewkey[i+1], ""));
         }
         prefseditor.putString(textviewkey[9], "");
 
         prefseditor.putInt("anzahlkey", anzahl);
         prefseditor.commit();
+
+        fromTextView.getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                fromTextView.setText(getApplicationContext().getString(R.string.realFrom) + ": " + prefs.getString(textviewkey[10], ""));
+            }
+        });
+
+        toTextView.getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                toTextView.setText(getApplicationContext().getString(R.string.realTo) + ": " + prefs.getString(textviewkey[0], " "));
+            }
+        });
+
     }});
 
     public void StartClick(View v) {
@@ -352,8 +367,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
                 toast.show();
 
-                toTextView.setText(tv_b[10].getText().toString());
-                fromTextView.setText(tv_b[0].getText().toString());
+                fromTextView.setText(getApplicationContext().getString(R.string.realFrom) + ": " + prefs.getString(textviewkey[10], ""));
+                toTextView.setText(getApplicationContext().getString(R.string.realTo) + ": " + prefs.getString(textviewkey[0], " "));
 
                 progressThread.start();
             }

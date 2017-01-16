@@ -6,4 +6,6 @@
     <string name="to">To</string>
     <string name="startsuccessful">Drive begins!</string>
     <string name="drivefinished">You arrived at your destination!</string>
+    <string name="realFrom">current location</string>
+    <string name="realTo">next stop</string>
 </resources>

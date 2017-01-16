@@ -5,4 +5,6 @@
     <string name="starterror">Bitte sicherstellen, dass alle Türen geschlossen, der Tank nicht leer und eine Route eingestellt ist.</string>
     <string name="startsuccessful">Fahrt beginnt!</string>
     <string name="drivefinished">Sie sind am Ziel angelangt!</string>
+    <string name="realFrom">aktueller Standort</string>
+    <string name="realTo">nächster Halt</string>
 </resources>
