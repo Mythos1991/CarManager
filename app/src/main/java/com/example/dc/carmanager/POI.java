@@ -66,10 +66,15 @@ public class POI extends AppCompatActivity {
         fuelRadioButton = (RadioButton) findViewById(R.id.fuelRadioButton);
         amenityRadioButton = (RadioButton) findViewById(R.id.amenityRadioButton);
 
-        init();
+        // init_default();
+        try {
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        onAllClick(null);
-        allRadioButton.setChecked(true);
+        // onAllClick(null);
+        // allRadioButton.setChecked(true);
     }
 
     public void onAllClick (View v) {
@@ -258,9 +263,68 @@ public class POI extends AppCompatActivity {
     }
 
 
+    private void init() throws IOException {
+        allPOIs = new ArrayList<>();
+        pubPOIs = new ArrayList<>();
+        fuelPOIs = new ArrayList<>();
+        amenityPOIs = new ArrayList<>();
+
+        DownloadJSONTask jsondl = new DownloadJSONTask();
+        jsondl.start();
+
+        while (jsondl.isAlive()) {
+
+        }
+        String jsonstring = "";
+        jsonstring = jsondl.getJSONasString();
+        JSONArray jsonArray = null;
+
+        try {
+            jsonArray = new JSONArray(jsonstring);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = null;
+            try {
+                obj = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            allPOIs.add(obj);
+        }
+
+        for (int i = 0; i < allPOIs.size(); i++) {
+            String type = null;
+            try {
+                type = allPOIs.get(i).getString("type");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            switch (type) {
+                case "fuel":
+                    fuelPOIs.add(allPOIs.get(i));
+                    break;
+                case "amenity":
+                    amenityPOIs.add(allPOIs.get(i));
+                    break;
+                case "pub":
+                    pubPOIs.add(allPOIs.get(i));
+                    break;
+            }
+        }
+    }
 
 
-    private void init() {
+
+
+
+
+
+
+    private void init_OLD() {
         allPOIs = new ArrayList<>();
         pubPOIs = new ArrayList<>();
         fuelPOIs = new ArrayList<>();

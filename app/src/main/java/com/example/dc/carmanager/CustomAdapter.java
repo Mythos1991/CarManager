@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,16 +88,21 @@ class CustomAdapter extends ArrayAdapter<JSONObject> {
             icon = getItem(position).get("icon").toString();
         } catch (JSONException e) {
             e.printStackTrace();
+            icon = "-1";
         }
+
         ImageView iconImageView = (ImageView) customView.findViewById(R.id.iconImageView);
+
         if (icon.equals("-1")) {
-            if (type == "fuel") {
+            if (type.equals("fuel")) {
                 iconImageView.setImageResource(R.drawable.fuel);
             }
-            else if (type == "pub") {
+            else if (type.equals("pub")) {
                 iconImageView.setImageResource(R.drawable.pub);
             }
-
+            else {
+                Toast.makeText(getContext(), ("type = " + type), Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             DownloadImageTask imgdl = new DownloadImageTask(icon);

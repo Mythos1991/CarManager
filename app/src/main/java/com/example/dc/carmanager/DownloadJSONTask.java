@@ -6,53 +6,60 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
 class DownloadJSONTask extends Thread implements Runnable {
-    String url = "https://www.fbi.h-da.de/fileadmin/personal/h.wiedling/daten/poi";
-    InputStream is;
+    String sourceUrl = "https://www.fbi.h-da.de/fileadmin/personal/h.wiedling/daten/poi";
+    String jsonstring = "";
 
     public DownloadJSONTask() {
 
     }
 
     public DownloadJSONTask(String _url) {
-        url = _url;
+        sourceUrl = _url;
+    }
+
+    public String getJSONasString () {
+        return jsonstring;
     }
 
     @Override
     public void run() {
-        downloadImage();
+        downloadJSON();
     }
 
-    private void downloadImage() {
-        URL newurl = null;
+    private void downloadJSON() {
+        StringBuilder response = null;
         try {
-            newurl = new URL(url);
-        } catch (MalformedURLException e) {
+            URL url = new URL(sourceUrl);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            BufferedReader r = new BufferedReader(
+                    new InputStreamReader( con.getInputStream() )
+            );
+            response = new StringBuilder();
+            String line;
+            try {
+                while ((line = r.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+            catch (Exception e) {
+
+            }
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
-        HttpsURLConnection connection  = null;
-        try {
-            connection = (HttpsURLConnection) newurl.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        is = null;
-        try {
-            is = connection.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        jsonstring = response.toString();
 
     }
 
-    public InputStream getJSONInputStream () {
-        return is;
-    }
+
 }
