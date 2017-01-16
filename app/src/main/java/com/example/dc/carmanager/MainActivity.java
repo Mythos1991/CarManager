@@ -267,6 +267,80 @@ public class MainActivity extends AppCompatActivity {
 
         fromTextView.setText(getApplicationContext().getString(R.string.realFrom) + ": " + prefs.getString(textviewkey[10], ""));
         toTextView.setText(getApplicationContext().getString(R.string.realTo) + ": " + prefs.getString(textviewkey[0], " "));
+
+        // Thread to simulate progress while driving from A to B
+        progressThread = new Thread(new Runnable() { public void run() {
+            for (int i = 0; i <= 100; i++) {
+                // display progress
+                routeProgressBar.setProgress(i);
+                // sleep to simulate progress
+                try {
+                    Thread.sleep(75);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            driving = false;
+
+            routeProgressBar.setProgress(0);
+
+            startImageButton.getHandler().post(new Runnable() {
+                public void run() {
+                    startImageButton.setVisibility(View.VISIBLE);
+                }
+            });
+
+            int amountFuel = prefs.getInt(FUELKEY, 90) - 10;
+            if (amountFuel < 0) {
+                amountFuel = 0;
+            }
+            prefseditor.putInt(FUELKEY, amountFuel);
+            prefseditor.commit();
+
+            fuelTextView.getHandler().post(new Runnable() {
+                public void run() {
+                    int amountFuel = prefs.getInt(FUELKEY, 90);
+                    fuelTextView.setText(amountFuel + "%");
+                }
+            });
+
+            fuelSeekBar.getHandler().post(new Runnable() {
+                public void run() {
+                    int amountFuel = prefs.getInt(FUELKEY, 90);
+                    fuelSeekBar.setProgress(amountFuel);
+                }
+            });
+
+            int anzahl = prefs.getInt(anzahlkey, 0);
+            anzahl = anzahl - 1;
+            if (anzahl < 0) {
+                anzahl = 0;
+            }
+            prefseditor.putString(textviewkey[10], prefs.getString(textviewkey[0], ""));
+            for (int i = 0; i < 8; i++) {
+                prefseditor.putString(textviewkey[i], prefs.getString(textviewkey[i+1], ""));
+            }
+            prefseditor.putString(textviewkey[9], "");
+
+            prefseditor.putInt("anzahlkey", anzahl);
+            prefseditor.commit();
+
+            fromTextView.getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    fromTextView.setText(getApplicationContext().getString(R.string.realFrom) + ": " + prefs.getString(textviewkey[10], ""));
+                }
+            });
+
+            toTextView.getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    toTextView.setText(getApplicationContext().getString(R.string.realTo) + ": " + prefs.getString(textviewkey[0], " "));
+                }
+            });
+
+        }});
     }
 
     // Door OnClick Listener
