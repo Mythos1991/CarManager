@@ -20,6 +20,9 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 
+import static com.example.dc.carmanager.Route.anzahlkey;
+import static com.example.dc.carmanager.Route.textviewkey;
+import static com.example.dc.carmanager.Route.tv_b;
 import static java.lang.Thread.sleep;
 
 /*
@@ -280,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
             routeProgressBar.setProgress(i);
             // sleep to simulate progress
             try {
-                Thread.sleep(100);
+                Thread.sleep(75);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -316,6 +319,20 @@ public class MainActivity extends AppCompatActivity {
                 fuelSeekBar.setProgress(amountFuel);
             }
         });
+
+        int anzahl = prefs.getInt(anzahlkey, 0);
+        anzahl = anzahl - 1;
+        if (anzahl < 0) {
+            anzahl = 0;
+        }
+        prefseditor.putString(textviewkey[10], tv_b[0].getText().toString());
+        for (int i = 0; i < 8; i++) {
+            prefseditor.putString(textviewkey[i], tv_b[i+1].getText().toString());
+        }
+        prefseditor.putString(textviewkey[9], "");
+
+        prefseditor.putInt("anzahlkey", anzahl);
+        prefseditor.commit();
     }});
 
     public void StartClick(View v) {
@@ -324,9 +341,9 @@ public class MainActivity extends AppCompatActivity {
             Boolean LeftDoorLocked = prefs.getBoolean(LEFTDOORKEY, true);
             Boolean RightDoorLocked = prefs.getBoolean(RIGHTDOORKEY, true);
             int amountFuel = prefs.getInt(FUELKEY, -1);
+            int anzahl = prefs.getInt(anzahlkey, 0);
 
-            // TODO if route configured
-            if (BottomDoorLocked && LeftDoorLocked && RightDoorLocked && (amountFuel > 0)) {
+            if (BottomDoorLocked && LeftDoorLocked && RightDoorLocked && (amountFuel > 0) && (anzahl >= 1)) {
                 driving = true;
                 startImageButton.setVisibility(View.INVISIBLE);
 
@@ -334,6 +351,9 @@ public class MainActivity extends AppCompatActivity {
                 String message = context.getString(R.string.startsuccessful);
                 Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
                 toast.show();
+
+                toTextView.setText(tv_b[10].getText().toString());
+                fromTextView.setText(tv_b[0].getText().toString());
 
                 progressThread.start();
             }
