@@ -25,7 +25,7 @@
 
             <TextView
                 android:text=""
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fromTextView"
                 android:paddingBottom="5dp"
@@ -35,7 +35,7 @@
 
             <TextView
                 android:text=""
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/toTextView"
                 android:paddingTop="5dp"

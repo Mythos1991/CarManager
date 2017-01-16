@@ -192,6 +192,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        fromTextView.setText(getApplicationContext().getString(R.string.realFrom) + ": " + prefs.getString(textviewkey[10], ""));
+        toTextView.setText(getApplicationContext().getString(R.string.realTo) + ": " + prefs.getString(textviewkey[0], " "));
+    }
+
     // Door OnClick Listener
 
     public void leftDoorClick(View v) {
