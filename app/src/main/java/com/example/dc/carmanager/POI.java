@@ -39,8 +39,6 @@ import static com.example.dc.carmanager.Route.del;
 
 import static com.example.dc.carmanager.MainActivity.EXTRA_MESSAGE;
 
-// TODO onItemCLickListener add to Route activity
-
 public class POI extends AppCompatActivity {
     // SharedPreferences
     SharedPreferences prefs;
