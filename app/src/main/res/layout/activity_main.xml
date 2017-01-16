@@ -227,72 +227,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_bottom"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="?attr/colorPrimary"
-            android:layout_alignParentBottom="true"
-            android:minHeight="?attr/actionBarSize">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/route_button"
+                android:id="@+id/routeImageButton"
+                android:onClick="startRouteActivity"
+                android:layout_weight="1"
+                android:layout_gravity="left"
+                android:padding="10dp" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/route_button"
-                    android:id="@+id/routeImageButton"
-                    android:onClick="startRouteActivity"
-                    android:layout_weight="1"
-                    android:layout_gravity="left" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/panic"
+                android:id="@+id/panicImageButton"
+                android:layout_centerInParent="true"
+                android:onClick="panicClick"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:padding="7dp" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/panic"
-                    android:id="@+id/panicImageButton"
-                    android:layout_centerInParent="true"
-                    android:onClick="panicClick"
-                    android:layout_weight="2"
-                    android:layout_gravity="center" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/zahnrad"
+                android:id="@+id/languageImageButton"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:onClick="changeLanguage"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:padding="10dp" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/zahnrad"
-                    android:id="@+id/languageImageButton"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:onClick="changeLanguage"
-                    android:layout_weight="1"
-                    android:layout_gravity="right" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.Toolbar>
+        </LinearLayout>
 
     </LinearLayout>
 
