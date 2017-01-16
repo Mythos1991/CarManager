@@ -73,8 +73,8 @@ public class POI extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // onAllClick(null);
-        // allRadioButton.setChecked(true);
+        onAllClick(null);
+        allRadioButton.setChecked(true);
     }
 
     public void onAllClick (View v) {
