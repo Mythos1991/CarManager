@@ -107,9 +107,8 @@ public class POI extends AppCompatActivity {
                         message = message + 1;
                         prefseditor.putInt("anzahlkey", message);
                         prefseditor.commit();
-                        Intent routeintent = new Intent (getApplicationContext() , Route.class);
 
-                        startActivity(routeintent);
+
                         finish();
                         return;
                     }

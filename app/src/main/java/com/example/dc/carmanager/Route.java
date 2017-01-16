@@ -119,17 +119,16 @@ public class Route extends Activity implements View.OnClickListener {
     }
 
 
-
-    protected void onResume(Bundle savedInstanceState){
-
+    @Override
+    public void onResume(){
+        super.onResume();
         Toast.makeText(Route.this, "onResume wurde ausgeführt", Toast.LENGTH_SHORT).show();
 
-        for(int i=0;i<10;i++){
-            tv_b[i].setText(prefs.getString(textviewkey[i], " "));
-            prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
 
+
+        for(int i=0;i<10;i++){
+            prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
         }
-        tv_b[10].setText(prefs.getString(textviewkey[10], "Startort Eingeben"));
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
 
@@ -156,7 +155,7 @@ public class Route extends Activity implements View.OnClickListener {
             if(setstartort)intent.putExtra(EXTRA_MESSAGE, (anzahl));
             else intent.putExtra( EXTRA_MESSAGE , (-1));
             startActivity(intent);
-            finish();
+
         }
 
     }
