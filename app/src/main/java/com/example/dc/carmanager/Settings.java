@@ -28,9 +28,12 @@ public class Settings extends AppCompatActivity {
         germanRadioButton = (RadioButton) findViewById(R.id.germanRadioButton);
         englishRadioButton = (RadioButton) findViewById(R.id.englishRadioButton);
 
+        germanRadioButton.setChecked(false);
+        englishRadioButton.setChecked(false);
+
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
-        lang = prefs.getString(LANGUAGEKEY, "de");
+        lang = prefs.getString(LANGUAGEKEY, "NONE");
         if (lang.equals("de")) {
             germanRadioButton.setChecked(true);
             englishRadioButton.setChecked(false);
@@ -38,6 +41,10 @@ public class Settings extends AppCompatActivity {
         else if (lang.equals("en")){
             germanRadioButton.setChecked(false);
             englishRadioButton.setChecked(true);
+        }
+        else {
+            germanRadioButton.setChecked(false);
+            englishRadioButton.setChecked(false);
         }
     }
 
@@ -47,6 +54,7 @@ public class Settings extends AppCompatActivity {
         prefseditor.commit();
         setLocale("de");
         Toast.makeText(Settings.this, "Sprache erfolgreich geändert!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void onEnglishClick (View v) {
@@ -55,6 +63,7 @@ public class Settings extends AppCompatActivity {
         prefseditor.commit();
         setLocale("en");
         Toast.makeText(Settings.this, "Language successfully changed!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void setLocale(String lang) {

@@ -5,6 +5,7 @@ import org.json.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import static com.example.dc.carmanager.MainActivity.EXTRA_MESSAGE;
 
@@ -26,27 +29,23 @@ public class Route extends Activity implements View.OnClickListener {
             "textview2key","textview3key", "textview4key",
             "textview5key", "textview6key", "textview7key",
             "textview8key", "textview9key","startkey"};
-    final public static String anzahlkey="anzahlkey";
 
+    final public static String anzahlkey="anzahlkey";
 
     public static TextView [] tv_a = new TextView[10];
     public static TextView [] tv_b = new TextView[11];
     public static Button [] del = new Button[10];
-
-
+    Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
-
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
 
         anzahl = prefs.getInt(anzahlkey, 0);
-
-
 
         tv_a[0] = (TextView) findViewById(R.id.textView1);
         tv_a[1] = (TextView) findViewById(R.id.textView2);
@@ -84,7 +83,7 @@ public class Route extends Activity implements View.OnClickListener {
         del[8] = (Button) findViewById(R.id.button9);
         del[9] = (Button) findViewById(R.id.button10);
 
-
+        saveButton = (Button) findViewById(R.id.button_save);
 
 
         for(int i=0;i<10;i++){
@@ -114,7 +113,11 @@ public class Route extends Activity implements View.OnClickListener {
             tv_a[i-1].setVisibility(View.INVISIBLE);
         }
 
-
+        // language
+        for (int i = 0; i < 10; i++) {
+            tv_a[i].setText(getApplicationContext().getString(R.string.stop) + " " + (i+1) + ":");
+        }
+        saveButton.setText(getApplicationContext().getString(R.string.save));
 
     }
 
@@ -123,8 +126,12 @@ public class Route extends Activity implements View.OnClickListener {
     public void onResume(){
         super.onResume();
 
-
-
+        // language
+        for (int i = 0; i < 10; i++) {
+            tv_a[i].setText(getApplicationContext().getString(R.string.stop) + " " + (i+1) + ": ");
+        }
+        saveButton.setText(getApplicationContext().getString(R.string.save));
+        
 
         for(int i=0;i<10;i++){
             prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());

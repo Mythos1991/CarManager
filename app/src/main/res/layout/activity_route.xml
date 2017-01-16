@@ -4,7 +4,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:text="Start  :"
+        android:text="Start:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,19 +22,20 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_height="match_parent"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:id="@+id/linearLayout1">
 
             <TextView
-                android:text="Ziel1:"
+                android:text="@string/stop1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:id="@+id/textView1"
-                android:layout_weight="0.10" />
+                android:layout_weight="0.10"
+                android:maxLines="1"/>
 
             <TextView
-                android:text="Ziel2: "
+                android:text="@string/stop2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -43,7 +44,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel3:"
+                android:text="@string/stop3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -51,7 +52,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel4:"
+                android:text="@string/stop4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -59,7 +60,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel5:"
+                android:text="@string/stop5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -67,7 +68,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel6:"
+                android:text="@string/stop6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -75,7 +76,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel7:"
+                android:text="@string/stop7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -83,7 +84,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel8:"
+                android:text="@string/stop8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -91,7 +92,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel9:"
+                android:text="@string/stop9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -99,7 +100,7 @@
                 android:layout_weight="0.1" />
 
             <TextView
-                android:text="Ziel10:"
+                android:text="@string/stop10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -286,7 +287,7 @@
     </LinearLayout>
 
     <Button
-        android:text="Speichern"
+        android:text="@string/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

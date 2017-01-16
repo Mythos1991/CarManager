@@ -7,4 +7,16 @@
     <string name="drivefinished">Sie sind am Ziel angelangt!</string>
     <string name="realFrom">aktueller Standort</string>
     <string name="realTo">nächster Halt</string>
+    <string name="save">Speichern</string>
+    <string name="stop">Ziel</string>
+    <string name="stop1">Ziel 1:</string>
+    <string name="stop10">Ziel 10:</string>
+    <string name="stop2">Ziel 2:</string>
+    <string name="stop3">Ziel 3:</string>
+    <string name="stop4">Ziel 4:</string>
+    <string name="stop5">Ziel 5:</string>
+    <string name="stop6">Ziel 6:</string>
+    <string name="stop7">Ziel 7:</string>
+    <string name="stop8">Ziel 8:</string>
+    <string name="stop9">Ziel 9:</string>
 </resources>

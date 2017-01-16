@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.example.dc.carmanager.Route.anzahlkey;
@@ -80,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
         String lang = prefs.getString(LANGUAGEKEY, "de");
+
+        // Language
+        if (lang.equals("de")) {
+            setLocale("de");
+        }
+        else if (lang.equals("en")){
+            setLocale("en");
+        }
 
         // Route
         fromTextView = (TextView) findViewById(R.id.fromTextView);
@@ -390,5 +400,14 @@ public class MainActivity extends AppCompatActivity {
         else {
 
         }
+    }
+
+    public void setLocale(String lang) {
+        Context context = getApplicationContext();
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getApplicationContext().getResources().updateConfiguration(config, null);
     }
 }

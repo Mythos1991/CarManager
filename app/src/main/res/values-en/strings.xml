@@ -8,4 +8,16 @@
     <string name="drivefinished">You arrived at your destination!</string>
     <string name="realFrom">current location</string>
     <string name="realTo">next stop</string>
+    <string name="save">Save</string>
+    <string name="stop">Target</string>
+    <string name="stop1">Target 1:</string>
+    <string name="stop10">Target 10:</string>
+    <string name="stop2">Target 2:</string>
+    <string name="stop3">Target 3:</string>
+    <string name="stop4">Target 4:</string>
+    <string name="stop5">Target 5:</string>
+    <string name="stop6">Target 6:</string>
+    <string name="stop7">Target 7:</string>
+    <string name="stop8">Target 8:</string>
+    <string name="stop9">Target 9:</string>
 </resources>
