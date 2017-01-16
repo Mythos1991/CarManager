@@ -40,7 +40,6 @@ public class Route extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
-        Toast.makeText(Route.this, "onCreate wurde ausgeführt", Toast.LENGTH_SHORT).show();
 
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
@@ -122,7 +121,7 @@ public class Route extends Activity implements View.OnClickListener {
     @Override
     public void onResume(){
         super.onResume();
-        Toast.makeText(Route.this, "onResume wurde ausgeführt", Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -239,16 +238,7 @@ public class Route extends Activity implements View.OnClickListener {
 
 
     public void save(View view) {
-        Bundle b = new Bundle();
-        String str[] = new String[11];
-        str[0] = tv_b[10].getText().toString();
-        for(int i=1;i<str.length; i++){
-            str[i]=tv_b[i-1].getText().toString();
-        }
-        b.putStringArray(EXTRA_MESSAGE , str);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtras(b);
-        startActivity(intent);
+        finish();
     }
 
 
