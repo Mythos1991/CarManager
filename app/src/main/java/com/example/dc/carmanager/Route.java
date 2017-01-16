@@ -1,20 +1,12 @@
 package com.example.dc.carmanager;
 
 import android.app.Activity;
-import org.json.*;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Locale;
 
 import static com.example.dc.carmanager.MainActivity.EXTRA_MESSAGE;
 
@@ -131,7 +123,7 @@ public class Route extends Activity implements View.OnClickListener {
             tv_a[i].setText(getApplicationContext().getString(R.string.stop) + " " + (i+1) + ": ");
         }
         saveButton.setText(getApplicationContext().getString(R.string.save));
-        
+
 
         for(int i=0;i<10;i++){
             prefseditor.putString(textviewkey[i], tv_b[i].getText().toString());
