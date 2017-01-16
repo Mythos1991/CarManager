@@ -67,6 +67,9 @@ public class POI extends AppCompatActivity {
         amenityRadioButton = (RadioButton) findViewById(R.id.amenityRadioButton);
 
         init();
+
+        onAllClick(null);
+        allRadioButton.setChecked(true);
     }
 
     public void onAllClick (View v) {
