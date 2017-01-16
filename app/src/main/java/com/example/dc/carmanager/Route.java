@@ -32,8 +32,6 @@ public class Route extends Activity implements View.OnClickListener {
     public static TextView [] tv_a = new TextView[10];
     public static TextView [] tv_b = new TextView[11];
     public static Button [] del = new Button[10];
-    Button add, save;
-    ListView lv;
 
 
 
@@ -42,18 +40,14 @@ public class Route extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
+        Toast.makeText(Route.this, "onCreate wurde ausgeführt", Toast.LENGTH_SHORT).show();
+
         prefs = this.getSharedPreferences("settings", MODE_PRIVATE);
         prefseditor = prefs.edit();
 
         anzahl = prefs.getInt(anzahlkey, 0);
 
-        Intent intent= getIntent();
-        int pruef = intent.getIntExtra(EXTRA_MESSAGE, -2);
-        if(pruef>=0 && pruef<10) anzahl=pruef;
-        prefseditor.putInt(anzahlkey, anzahl);
-        prefseditor.commit();
 
-        add=(Button) findViewById(R.id.button_add);
 
         tv_a[0] = (TextView) findViewById(R.id.textView1);
         tv_a[1] = (TextView) findViewById(R.id.textView2);
@@ -103,7 +97,10 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
 
-        if(!(tv_b[10].getText().equals("Startort Eingeben"))) {
+        if((tv_b[10].getText().equals("Startort Eingeben"))) {
+            setstartort=false;
+        }
+        else{
             setstartort=true;
         }
 
@@ -121,9 +118,11 @@ public class Route extends Activity implements View.OnClickListener {
 
     }
 
-    
+
 
     protected void onResume(Bundle savedInstanceState){
+
+        Toast.makeText(Route.this, "onResume wurde ausgeführt", Toast.LENGTH_SHORT).show();
 
         for(int i=0;i<10;i++){
             tv_b[i].setText(prefs.getString(textviewkey[i], " "));
@@ -134,7 +133,10 @@ public class Route extends Activity implements View.OnClickListener {
         prefseditor.putString(textviewkey[10], tv_b[10].getText().toString());
         prefseditor.commit();
 
-        if(!(tv_b[10].getText().equals("Startort Eingeben"))) {
+        if((tv_b[10].getText().equals("Startort Eingeben"))) {
+            setstartort=false;
+        }
+        else{
             setstartort=true;
         }
 
@@ -150,11 +152,11 @@ public class Route extends Activity implements View.OnClickListener {
     public void add (View v) {
         if (anzahl<10){
 
-
             Intent intent = new Intent(this, POI.class);
-            if(setstartort)intent.putExtra(EXTRA_MESSAGE, -1);
-            else intent.putExtra( EXTRA_MESSAGE , (anzahl));
+            if(setstartort)intent.putExtra(EXTRA_MESSAGE, (anzahl));
+            else intent.putExtra( EXTRA_MESSAGE , (-1));
             startActivity(intent);
+            finish();
         }
 
     }
